@@ -54,6 +54,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
+    coinbase (4.1.0)
     concurrent-ruby (1.0.5)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -169,6 +170,7 @@ DEPENDENCIES
   bootstrap-sass (= 3.3.7)
   byebug
   coffee-rails (= 4.2.1)
+  coinbase
   font-awesome-sass (= 4.6.2)
   hirb (= 0.7.3)
   jbuilder (= 2.5.0)
