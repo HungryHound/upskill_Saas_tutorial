@@ -1,0 +1,65 @@
+<!-- Auto refresh of page set to content="X" seconds
+<!-- <head>-->
+  <!--<meta http-equiv="refresh" content="3">-->
+<!--</head> -->
+
+<div class="container">
+  <div class="row">
+    <h3 class="text-center">CoinBase</h3>
+
+<!--    <div class="col-md-6">-->
+<!--      <div class="well">-->
+<!--      <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script> <div class="coinmarketcap-currency-widget" data-currency="bitcoin" data-base="EUR" data-secondary="BTC" data-ticker="true" data-rank="true" data-marketcap="true" data-volume="true" data-stats="EUR" data-statsticker="false"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="col-md-6">-->
+<!--      <div class="well">-->
+<!--        <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="litecoin" data-base="EUR" data-secondary="BTC" data-ticker="true" data-rank="true" data-marketcap="true" data-volume="true" data-stats="EUR" data-statsticker="false"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="col-md-6">-->
+<!--      <div class="well">-->
+<!--        <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="ethereum" data-base="EUR" data-secondary="BTC" data-ticker="true" data-rank="true" data-marketcap="true" data-volume="true" data-stats="EUR" data-statsticker="true"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="col-md-6">-->
+<!--      <div class="well">-->
+<!--        <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/currency.js"></script><div class="coinmarketcap-currency-widget" data-currency="monero" data-base="EUR" data-secondary="BTC" data-ticker="true" data-rank="true" data-marketcap="true" data-volume="true" data-stats="EUR" data-statsticker="true"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <div class="well text-center col-md-3">
+      <h4>1</h4>
+      <h5>Pick CryptoCurrency</h5>    
+      <%= form_for @cryptocurrency do |f| %>
+        <div class="form-group">
+          <%= f.select :coin, options_for_select(["BitCoin", "LiteCoin", "Ethereum", "Monero"]) %>
+        </div>
+        <%= @coin %>
+      
+        <div class="form-group">
+          <%= f.label :holding %>
+          <%= f.text_field :holding, class: 'form-control' %>
+        </div>
+            
+        <div class="form-group">
+          <%= f.label :purchase_price %>
+          <%= f.text_field :purchase_price, class: 'form-control' %>
+        </div>
+        
+        <%= f.submit 'Submit', class: 'btn btn-default' %>
+
+      <% end %>
+      <h6>Capital</h6>
+      <%= @purchase_price.to_f * @holding.to_f%>
+
+    </div>
+
+ 
+
+
+  </div>
+</div>
