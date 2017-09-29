@@ -57,7 +57,7 @@ $(document).on('turbolinks:load', function(){
   //Stripe will return a card token.
   function stripeResponseHandler(status, response) {
     // Get token from the response
-      var token = response.id;
+    var token = response.id;
 
     // Enject card token in a hidden field
     theForm.append( $('<input type="hidden" name="user[stripe_card_token]">').val(token) );
