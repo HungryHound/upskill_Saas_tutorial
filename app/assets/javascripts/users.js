@@ -2,12 +2,13 @@
 //Document ready
 $(document).on('turbolinks:load', function(){
   var theForm = $('#pro_form');
-  var submitBtn = $('#form-submit-btn');
+  var submitBtn = $('#form-signup-btn');
+  
   //Set Stripe public key
-  Stripe.setPublishableKey( $('meta[name="stripe-key"]').attr('content'));
+  Stripe.setPublishableKey( $('meta[name="stripe-key"]').attr('content') );
   
   //When user clicks form submit btn
-  submitBtn.click(function(){
+  submitBtn.click(function(event){
     //prevent defualt submission behaviou
     event.preventDefault();
     submitBtn.val("Processing").prop('disabled', true);
@@ -17,7 +18,7 @@ $(document).on('turbolinks:load', function(){
         cvcNum = $('#card_code').val(),
         expMonth = $('#card_month').val(),
         expYear = $('#card_year').val();
-    
+
     //Use STripe JS library to check for card errors
     var error = false;
     
@@ -56,8 +57,8 @@ $(document).on('turbolinks:load', function(){
   //Stripe will return a card token.
   function stripeResponseHandler(status, response) {
     // Get token from the response
-    var token = response.id;
-    
+      var token = response.id;
+
     // Enject card token in a hidden field
     theForm.append( $('<input type="hidden" name="user[stripe_card_token]">').val(token) );
     
