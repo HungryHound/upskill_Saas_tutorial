@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
   
   # GET to /users/:users/profile/new
   def new
-    # Render black profile details form
-    
+    # Render blank profile details form
+    @profile = Profile.new
   end
 end
