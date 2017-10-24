@@ -1,0 +1,19 @@
+<% require 'coinbase/exchange' %>
+<% require 'eventmachine' %>
+
+<% websocket = Coinbase::Exchange::Websocket.new(product_id: 'BTC-EUR', keepalive: true) %>
+<% websocket.match do |resp| %>
+  <%= p "Spot Rate: € %.2f" % resp.price %>
+<% end %>
+
+<% EM.run do %>
+  <% websocket.start! %>
+  <% EM.add_periodic_timer(1) do %>
+    <% websocket.ping do %>
+      <%= p "Websocket is alive" %>
+    <% end %>
+  <% end %>
+  <% EM.error_handler do |e| %>
+    <%= p "Websocket Error:" % e.message %>
+  <% end %>
+<% end %>

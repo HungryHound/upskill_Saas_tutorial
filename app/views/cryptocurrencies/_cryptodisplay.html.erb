@@ -1,0 +1,34 @@
+<div class="well text-center col-md-3">
+  <h4><%= coin %></h4>
+  <% if (coin == 'BTC') || (coin == 'LTC') || (coin == 'ETH') %>
+    <% client.last_trade(product_id: coin + "-EUR") do |resp| %>
+      <%= p "Spot Rate: €%.2f" % BigDecimal(resp['price']) %></br>
+      <% @price = BigDecimal(resp['price']).to_f %>
+    <% end %>
+  <% elsif  (coin == 'EUR') %>
+    </br>
+  <% else %>
+    <% flash[:danger] = "Crypto Coin Tag Incorrect" %>
+    <% controller.redirect_to root_url %>
+  <% end %>
+  
+  <% puts case coin %>
+  <% when 'BTC' %>
+    <% @account_no = GDAX_BTC_ACC %>
+  <% when 'LTC' %>
+    <% @account_no = GDAX_LTC_ACC %>
+  <% when 'ETH' %>
+    <% @account_no = GDAX_ETH_ACC %>
+  <% when 'EUR' %>
+    <% @account_no = GDAX_EUR_ACC %>
+  <% end %>
+  
+  <% client.account(@account_no) do |account| %>
+    <%= p "Balance: %.2f #{account.currency}" % account.balance %></br>
+    <% if coin != 'EUR' %>
+      <%= p "Total: €%.2f" % (account.balance * @price).to_f %>
+    <% else %>
+      </br>
+    <% end %>
+  <% end %>
+</div>

@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   get 'contact-us', to: 'contacts#new', as: 'new_contact'
   resources :cryptocurrencies
   resources :calculator
+  get 'crypto', to: 'cryptocurrencies#crypto'
+  get 'websocket', to: 'cryptocurrencies#websocket'
 end

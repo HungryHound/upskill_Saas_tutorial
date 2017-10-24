@@ -1,0 +1,7 @@
+GDAX_PASS = ENV["gdax_api_pass"]
+GDAX_KEY = ENV["gdax_api_key"]
+GDAX_SECRET = ENV["gdax_api_secret"]
+GDAX_BTC_ACC = ENV["gdax_api_btc_acc"]
+GDAX_LTC_ACC = ENV["gdax_api_ltc_acc"]
+GDAX_ETH_ACC = ENV["gdax_api_eth_acc"]
+GDAX_EUR_ACC = ENV["gdax_api_eur_acc"]

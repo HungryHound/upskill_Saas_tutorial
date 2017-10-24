@@ -52,6 +52,9 @@ gem 'paperclip', '4.3.6'
 # Use for Coinbase
 gem 'coinbase'
 
+# Use for GDAX
+gem 'coinbase-exchange'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'

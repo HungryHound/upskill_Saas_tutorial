@@ -18,6 +18,8 @@ $(document).on('turbolinks:load', function(){
         cvcNum = $('#card_code').val(),
         expMonth = $('#card_month').val(),
         expYear = $('#card_year').val();
+        
+        alert(expMonth);
 
     //Use STripe JS library to check for card errors
     var error = false;

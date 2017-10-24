@@ -1,0 +1,12 @@
+<% require 'coinbase/exchange' %>
+
+<% eur_client = Coinbase::Exchange::Client.new(GDAX_KEY, GDAX_SECRET, GDAX_PASS) %>
+<div class="container">
+  <div class="row">
+    <h3 class="text-center">GDAX</h3>
+      <%= render partial: 'cryptodisplay', :locals => {:client => eur_client, :coin => 'BTC'} %>
+      <%= render partial: 'cryptodisplay', :locals => {:client => eur_client, :coin => 'LTC'} %>
+      <%= render partial: 'cryptodisplay', :locals => {:client => eur_client, :coin => 'ETH'} %>
+      <%= render partial: 'cryptodisplay', :locals => {:client => eur_client, :coin => 'EUR'} %>
+  </div>
+</div>
