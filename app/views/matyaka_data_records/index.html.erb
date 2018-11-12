@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="well">
+        <h2 class="text-center">Data Search</h2></br>
+        <%= form_tag matyaka_data_records_path, :method => 'get' do %>
+          <div class="form-group">
+            <%= text_field_tag :search, params[:search], class: 'form-control'%>
+            <%= submit_tag "Search", class: 'btn btn-default' %>
+          </div>
+        <% end %>
+        </br>
+      </div>
+    </div>
+    </br></br>
+
+      <div class="col-md-12">
+        <div class="well">
+          <table class="table table-condensed">
+            <thread>
+              <tr>
+                <th>Account Name</th>
+                <th>Site URL Address</th>
+                <th>Advertising Group</th>
+                <th>Remaining Funds</th>
+              </tr>
+            </thread>
+            
+            <tbody>
+              <% @matyaka_data_records.each do |record| %>
+                <tr>
+                  <td><%= record.account_name %></td>
+                  <td><%= record.site_url_address %></td>
+                  <td><%= record.advertising_group %></td>
+                  <td><%= record.remaining_funds %></td>
+                  <td><%= link_to 'Edit', edit_matyaka_data_record_path(record), class: 'btn btn-default' %></td>
+                  <td><%= link_to 'Delete', record, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+</div>

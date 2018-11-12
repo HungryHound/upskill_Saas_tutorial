@@ -46,8 +46,7 @@
       <h5>Pick CryptoCurrency</h5>    
       <%= form_for('new', :method => :put, :remote => true) do  %>
         <div class="form-group">
-          <%= select_tag :coin2, options_for_select(["BTC", "LTC", "ETH"]),
-            {:onchange => "alert('2: '+$('#coin2').val() +'-EUR');"} %>
+          <%= text_field_tag :coin2, '', {:onchange => "alert('2: '+$('#coin2').val());"} %>
         </div>
       <% end %>
     </div>
@@ -73,5 +72,6 @@
         </div>
       <% end %>
     </div>
+
   </div>
 </div>

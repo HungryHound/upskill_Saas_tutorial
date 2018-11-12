@@ -2,8 +2,8 @@
   <h4><%= coin %></h4>
   <% if (coin == 'BTC') || (coin == 'LTC') || (coin == 'ETH') %>
     <% client.last_trade(product_id: coin + "-EUR") do |resp| %>
-      <%= p "Spot Rate: €%.2f" % BigDecimal(resp['price']) %></br>
       <% @price = BigDecimal(resp['price']).to_f %>
+      <%= p "Spot Rate: €%.2f" % @price %></br>
     <% end %>
   <% elsif  (coin == 'EUR') %>
     </br>
@@ -14,10 +14,13 @@
   
   <% puts case coin %>
   <% when 'BTC' %>
+    <% @paid = 0.234 * 11500.0 %>
     <% @account_no = GDAX_BTC_ACC %>
   <% when 'LTC' %>
+    <% @paid = 2.6 * 270.0 %>
     <% @account_no = GDAX_LTC_ACC %>
   <% when 'ETH' %>
+    <% @paid = 0.0 %>
     <% @account_no = GDAX_ETH_ACC %>
   <% when 'EUR' %>
     <% @account_no = GDAX_EUR_ACC %>
@@ -26,9 +29,18 @@
   <% client.account(@account_no) do |account| %>
     <%= p "Balance: %.2f #{account.currency}" % account.balance %></br>
     <% if coin != 'EUR' %>
-      <%= p "Total: €%.2f" % (account.balance * @price).to_f %>
+      <% @cash = 0.0 %>
+      <% @holdings = account.balance * @price %>
+      <%= p "Holdings: €%.2f" % @holdings %></br>
+      <%= p "Paid: €%.2f" % @paid %></br>
+      <% @profit = @holdings - @paid %>
+      <%= p "Profit: €%.2f" % @profit %>
+      <% @TotalHoldings = @TotalHoldings + @holdings %>
+      <% @TotalPaid = @TotalPaid + @paid %>
     <% else %>
-      </br>
+      <% @cash = account.balance %>
+      </br></br></br>
     <% end %>
+    <% @TotalHoldings = @TotalHoldings + @cash %>
   <% end %>
 </div>

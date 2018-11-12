@@ -1,12 +1,72 @@
 <% require 'coinbase/exchange' %>
 
+ <!--Auto refresh of page set to content="X" seconds-->
+<!--<head>-->
+<!--  <meta http-equiv="refresh" content="20">-->
+<!--</head> -->
+
+<% @TotalPortfolioHoldings = 0.0 %>
+<% @TotalPortfolioPaid = 0.0 %>
+
+
 <% eur_client = Coinbase::Exchange::Client.new(GDAX_KEY, GDAX_SECRET, GDAX_PASS) %>
 <div class="container">
+  <!--<h2 class="text-center">GDAX</h2>-->
   <div class="row">
-    <h3 class="text-center">GDAX</h3>
-      <%= render partial: 'cryptodisplay', :locals => {:client => eur_client, :coin => 'BTC'} %>
-      <%= render partial: 'cryptodisplay', :locals => {:client => eur_client, :coin => 'LTC'} %>
-      <%= render partial: 'cryptodisplay', :locals => {:client => eur_client, :coin => 'ETH'} %>
-      <%= render partial: 'cryptodisplay', :locals => {:client => eur_client, :coin => 'EUR'} %>
+    <h3 class="text-center">Trading Portfolio</h3>
+      <% @TotalHoldings = 0.0 %>
+      <% @TotalPaid = 0.0 %>
+      <%= render partial: 'cryptodisplay_trade', :locals => {:client => eur_client, :coin => 'BTC'} %>
+      <%= render partial: 'cryptodisplay_trade', :locals => {:client => eur_client, :coin => 'LTC'} %>
+      <%= render partial: 'cryptodisplay_trade', :locals => {:client => eur_client, :coin => 'ETH'} %>
+      <%= render partial: 'cryptodisplay_trade', :locals => {:client => eur_client, :coin => 'EUR'} %>
+      <div class="well text-center col-md-3">
+        <%= p "Total Cash: €%.2f" % @cash %></br>
+      </div>
+      <div class="well text-center col-md-3">
+        <%= p "Total Holdings: €%.2f" % @TotalHoldings%></br>
+      </div>
+      <div class="well text-center col-md-3">
+        <%= p "Total Paid: €%.2f" % @TotalPaid %></br>
+      </div>
+      <div class="well text-center col-md-3">
+        <%= p "Total Profit: €%.2f" % (@TotalHoldings - @TotalPaid) %></br>
+      </div>
+  </div>    
+
+  
+  <% @TotalPortfolioHoldings = @TotalPortfolioHoldings + @TotalHoldings %>
+  <% @TotalPortfolioPaid = @TotalPortfolioPaid + @TotalPaid %>
+
+  <div class="row">
+    <h3 class="text-center">Holding Portfolio</h3>
+      <% @TotalHoldings = 0.0 %>
+      <% @TotalPaid = 0.0 %>
+      <%= render partial: 'cryptodisplay_hold', :locals => {:client => eur_client, :coin => 'BTC'} %>
+      <%= render partial: 'cryptodisplay_hold', :locals => {:client => eur_client, :coin => 'LTC'} %>
+      <%= render partial: 'cryptodisplay_hold', :locals => {:client => eur_client, :coin => 'ETH'} %>
+       <div class="well text-center col-md-4">
+        <%= p "Total Holdings: €%.2f" % @TotalHoldings%></br>
+      </div>
+      <div class="well text-center col-md-4">
+        <%= p "Total Paid: €%.2f" % @TotalPaid %></br>
+      </div>
+      <div class="well text-center col-md-4">
+        <%= p "Total Profit: €%.2f" % (@TotalHoldings - @TotalPaid) %></br>
+      </div>
+      
+      <% @TotalPortfolioHoldings = @TotalPortfolioHoldings + @TotalHoldings %>
+      <% @TotalPortfolioPaid = @TotalPortfolioPaid + @TotalPaid %>
+
+      <div class="well text-center col-md-4">
+        <%= p "Total Portfolio Holdings: €%.2f" % @TotalPortfolioHoldings%></br>
+      </div>
+      <div class="well text-center col-md-4">
+        <%= p "Total Portfolio Paid: €%.2f" % @TotalPortfolioPaid %></br>
+      </div>
+      <div class="well text-center col-md-4">
+        <%= p "Total Portfolio Profit: €%.2f" % (@TotalPortfolioHoldings - @TotalPortfolioPaid) %></br>
+      </div>
+
   </div>
 </div>

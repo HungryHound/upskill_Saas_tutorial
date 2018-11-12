@@ -1,0 +1,43 @@
+<div class="well text-center col-md-4">
+  <h4><%= coin %></h4>
+  <% if (coin == 'BTC') || (coin == 'LTC') || (coin == 'ETH') %>
+    <% client.last_trade(product_id: coin + "-EUR") do |resp| %>
+      <% @price = BigDecimal(resp['price']).to_f %>
+    <% end %>
+  <% elsif  (coin == 'DASH') %>
+    <% @price =  173.0 %>
+  <% else %>
+    <% flash[:danger] = "Crypto Coin Tag Incorrect" %>
+    <% controller.redirect_to root_url %>
+  <% end %>
+  
+  <% puts case coin %>
+  <% when 'BTC' %>
+    <% @paid_price = 3715.17 %>
+    <% @balance = 0.16 %>
+    <% @cost = LED_BTC_TRANS.to_f %>
+  <% when 'LTC' %>
+    <% @paid_price = 37.22 %>
+    <% @balance = 7.0 %>
+    <% @cost = LED_LTC_TRANS.to_f %>
+  <% when 'ETH' %>
+    <% @paid_price = 216.6 %>
+    <% @balance = 2.75103955 %>
+    <% @cost = LED_ETH_TRANS.to_f %>
+  <% end %>
+  
+  <% @paid = @paid_price * @balance %>
+  <% @balance = @balance - @cost %>
+  
+  <%= p "Spot Rate: €%.2f" % @price %></br>
+  <%= p "Balance: %.2f #{coin}" % @balance%></br>
+  <% @holdings = @balance * @price %>
+  <%= p "Holdings: €%.2f" % @holdings %></br>
+  <%= p "Paid: €%.2f" % @paid %></br>
+  <% @profit = @holdings - @paid %>
+  <%= p "Profit: €%.2f" % @profit %>
+  <% @TotalHoldings = @TotalHoldings + @holdings %>
+  <% @TotalPaid = @TotalPaid + @paid %>
+  <% @TotalHoldings = @TotalHoldings + @cash %>
+
+</div>
